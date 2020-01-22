@@ -14,34 +14,37 @@
  * @author  Michael Kölling and David J. Barnes
  * @version 2016.02.29
  */
+import java.util.ArrayList;
 
 public class Game 
 {
     private Parser parser;
     private Room currentRoom;
+    private Room previousRoom;
         
-    /**
-     * Create the game and initialise its internal map.
-     */
+    //Create the game and initialise its internal map.
     public Game() 
     {
         createRooms();
         parser = new Parser();
     }
 
-    /**
-     * Create all the rooms and link their exits together.
-     */
+    //Create all items
+    
+    Item rock = new Item(5, "A simple rock");
+    Item key = new Item(1, "A key for a door lock");
+    
+    //Create all the rooms and link their exits together.
     private void createRooms()
     {
         Room outside, theater, pub, lab, office;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        outside = new Room("outside the main entrance of the university", rock);
+        theater = new Room("in a lecture theater", null);
+        pub = new Room("in the campus pub", null);
+        lab = new Room("in a computing lab", null);
+        office = new Room("in the computing admin office", key);
         
         // initialise room exits
         outside.setExits(null, theater, lab, pub, null, null);
@@ -52,7 +55,7 @@ public class Game
 
         currentRoom = outside;  // start game outside
     }
-
+    
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -134,6 +137,9 @@ public class Game
         else if (commandWord.equals("look")) {
             look();
         }
+        else if (commandWord.equals("back")) {
+            back();
+        }
 
         return wantToQuit;
     }
@@ -157,8 +163,14 @@ public class Game
     private void look()
     {
         System.out.println(currentRoom.getDescription());
+        if(currentRoom.item == rock) {
+            System.out.println(rock.getDescription());
+        }
+        else if(currentRoom.item == key) {
+            System.out.println(key.getDescription());
+        }
     }
-    
+
     /** 
      * Try to go in one direction. If there is an exit, enter
      * the new room, otherwise print an error message.
@@ -176,21 +188,27 @@ public class Game
         // Try to leave current room.
         Room nextRoom = null;
         if(direction.equals("north")) {
+            previousRoom = currentRoom;
             nextRoom = currentRoom.northExit;
         }
         if(direction.equals("east")) {
+            previousRoom = currentRoom;
             nextRoom = currentRoom.eastExit;
         }
         if(direction.equals("south")) {
+            previousRoom = currentRoom;
             nextRoom = currentRoom.southExit;
         }
         if(direction.equals("west")) {
+            previousRoom = currentRoom;
             nextRoom = currentRoom.westExit;
         }
         if(direction.equals("up")) {
+            previousRoom = currentRoom;
             nextRoom = currentRoom.upExit;
         }
         if(direction.equals("down")) {
+            previousRoom = currentRoom;
             nextRoom = currentRoom.downExit;
         }
 
@@ -214,6 +232,30 @@ public class Game
                 System.out.print("west ");
             }
             System.out.println();
+        }
+    }
+    
+    private void back() {
+        currentRoom = previousRoom;
+        System.out.println("You are " + currentRoom.getDescription());
+        System.out.print("Exits: ");
+        if(currentRoom.northExit != null) {
+            System.out.print("north ");
+        }
+        if(currentRoom.eastExit != null) {
+            System.out.print("east ");
+        }
+        if(currentRoom.southExit != null) {
+            System.out.print("south ");
+        }
+        if(currentRoom.westExit != null) {
+            System.out.print("west ");
+        }
+        if(currentRoom.upExit != null) {
+            System.out.print("up ");
+        }
+        if(currentRoom.downExit != null) {
+            System.out.print("down ");
         }
     }
 

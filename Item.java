@@ -7,27 +7,31 @@
  */
 public class Item
 {
-    // instance variables - replace the example below with your own
-    private int x;
+    public int weight;
+    public String description;
 
     /**
      * Constructor for objects of class Item
      */
-    public Item()
+    public Item(int weight, String description)
     {
-        // initialise instance variables
-        x = 0;
+        this.weight = 0;
+        this.description = description;
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     /**
+     * @return The description of the item.
      */
-    public int sampleMethod(int y)
+    public String getDescription()
     {
-        // put your code here
-        return x + y;
+        return description;
+    }
+    
+     /**
+     * @return The weight of the item.
+     */
+    public int getWeight()
+    {
+        return weight;
     }
 }

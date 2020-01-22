@@ -12,6 +12,8 @@
  * @author  Michael Kölling and David J. Barnes
  * @version 2016.02.29
  */
+import java.util.ArrayList;
+
 public class Room 
 {
     public String description;
@@ -21,6 +23,7 @@ public class Room
     public Room westExit;
     public Room upExit;
     public Room downExit;
+    public Item item;
 
     /**
      * Create a room described "description". Initially, it has
@@ -28,9 +31,10 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) 
+    public Room(String description, Item item) 
     {
         this.description = description;
+        this.item = item;
     }
 
     /**
