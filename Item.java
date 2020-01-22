@@ -1,4 +1,5 @@
 
+
 /**
  * Write a description of class Item here.
  *
@@ -7,31 +8,31 @@
  */
 public class Item
 {
-    public int weight;
+    // instance variables - replace the example below with your own
     public String description;
+    private String itemLocation;
 
     /**
      * Constructor for objects of class Item
      */
-    public Item(int weight, String description)
+    public Item(String description)
     {
-        this.weight = 0;
         this.description = description;
     }
 
-     /**
-     * @return The description of the item.
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y  a sample parameter for a method
+     * @return    the sum of x and y
      */
-    public String getDescription()
+    public void setItemLocation(String itemLocation)
     {
-        return description;
+        this.itemLocation = itemLocation;
     }
     
-     /**
-     * @return The weight of the item.
-     */
-    public int getWeight()
+    public String getItemLocation()
     {
-        return weight;
+        return itemLocation;
     }
 }

@@ -1,13 +1,12 @@
 #BlueJ class context
 comment0.target=Item
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Item\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=weight\ description
-comment1.target=Item(int,\ java.lang.String)
+comment1.params=description
+comment1.target=Item(java.lang.String)
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Item\r\n
-comment2.params=
-comment2.target=java.lang.String\ getDescription()
-comment2.text=\r\n\ @return\ The\ description\ of\ the\ item.\r\n
+comment2.params=itemLocation
+comment2.target=void\ setItemLocation(java.lang.String)
+comment2.text=\r\n\ An\ example\ of\ a\ method\ -\ replace\ this\ comment\ with\ your\ own\r\n\r\n\ @param\ \ y\ \ a\ sample\ parameter\ for\ a\ method\r\n\ @return\ \ \ \ the\ sum\ of\ x\ and\ y\r\n
 comment3.params=
-comment3.target=int\ getWeight()
-comment3.text=\r\n\ @return\ The\ weight\ of\ the\ item.\r\n
+comment3.target=java.lang.String\ getItemLocation()
 numComments=4

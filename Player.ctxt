@@ -1,7 +1,17 @@
 #BlueJ class context
 comment0.target=Player
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Player\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
 comment1.target=Player()
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Player\r\n
-numComments=2
+comment2.params=currentRoom
+comment2.target=void\ setCurrentRoom(Room)
+comment2.text=\r\n\ Set\ the\ current\ room\r\n\ @param\ int\ the\ current\ room\r\n
+comment3.params=
+comment3.target=Room\ getCurrentRoom()
+comment4.params=newItem
+comment4.target=void\ addItem(Item)
+comment4.text=\r\n\ Add\ an\ item\ to\ the\ inventory\r\n\ @param\ Item\ the\ item\ to\ be\ added\r\n
+comment5.params=
+comment5.target=java.util.ArrayList\ getInventory()
+comment5.text=\r\n\ Return\ the\ entire\ inventory\r\n\ @return\ Arraylist\r\n
+numComments=6

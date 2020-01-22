@@ -1,3 +1,4 @@
+
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -14,37 +15,38 @@
  * @author  Michael Kölling and David J. Barnes
  * @version 2016.02.29
  */
+
 import java.util.ArrayList;
 
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
-    private Room previousRoom;
+    private Player player;
+    private int itemToTake;
         
-    //Create the game and initialise its internal map.
+    /**
+     * Create the game and initialise its internal map.
+     */
     public Game() 
     {
         createRooms();
+        createItems();
         parser = new Parser();
     }
 
-    //Create all items
-    
-    Item rock = new Item(5, "A simple rock");
-    Item key = new Item(1, "A key for a door lock");
-    
-    //Create all the rooms and link their exits together.
+    /**
+     * Create all the rooms and link their exits together.
+     */
     private void createRooms()
     {
         Room outside, theater, pub, lab, office;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university", rock);
-        theater = new Room("in a lecture theater", null);
-        pub = new Room("in the campus pub", null);
-        lab = new Room("in a computing lab", null);
-        office = new Room("in the computing admin office", key);
+        outside = new Room("outside the main entrance of the university");
+        theater = new Room("in a lecture theater");
+        pub = new Room("in the campus pub");
+        lab = new Room("in a computing lab");
+        office = new Room("in the computing admin office");
         
         // initialise room exits
         outside.setExits(null, theater, lab, pub, null, null);
@@ -53,9 +55,22 @@ public class Game
         lab.setExits(outside, office, null, null, null, null);
         office.setExits(null, null, null, lab, null, null);
 
-        currentRoom = outside;  // start game outside
+        player.currentRoom = outside;  // start game outside
     }
     
+    private void createItems()
+    {
+        Item bread, key, mcguffin;
+        
+        bread = new Item("a piece of bread");
+        key = new Item("a key for a lock");
+        mcguffin = new Item("probably a quest item");
+        
+        bread.setItemLocation("pub");
+        key.setItemLocation("theater");
+        mcguffin.setItemLocation("lab");
+    }
+
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -84,24 +99,24 @@ public class Game
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        System.out.println("You are " + currentRoom.getDescription());
+        System.out.println("You are " + player.currentRoom.getDescription());
         System.out.print("Exits: ");
-        if(currentRoom.northExit != null) {
+        if(player.currentRoom.northExit != null) {
             System.out.print("north ");
         }
-        if(currentRoom.eastExit != null) {
+        if(player.currentRoom.eastExit != null) {
             System.out.print("east ");
         }
-        if(currentRoom.southExit != null) {
+        if(player.currentRoom.southExit != null) {
             System.out.print("south ");
         }
-        if(currentRoom.westExit != null) {
+        if(player.currentRoom.westExit != null) {
             System.out.print("west ");
         }
-        if(currentRoom.upExit != null) {
+        if(player.currentRoom.upExit != null) {
             System.out.print("up ");
         }
-        if(currentRoom.downExit != null) {
+        if(player.currentRoom.downExit != null) {
             System.out.print("down ");
         }
         System.out.println();
@@ -137,8 +152,12 @@ public class Game
         else if (commandWord.equals("look")) {
             look();
         }
-        else if (commandWord.equals("back")) {
-            back();
+        else if (commandWord.equals("inventory")) {
+            player.getInventory();
+        }
+        else if (commandWord.equals("take"))
+        {
+            takeItem(command);
         }
 
         return wantToQuit;
@@ -162,15 +181,9 @@ public class Game
 
     private void look()
     {
-        System.out.println(currentRoom.getDescription());
-        if(currentRoom.item == rock) {
-            System.out.println(rock.getDescription());
-        }
-        else if(currentRoom.item == key) {
-            System.out.println(key.getDescription());
-        }
+        System.out.println(player.currentRoom.getDescription());
     }
-
+    
     /** 
      * Try to go in one direction. If there is an exit, enter
      * the new room, otherwise print an error message.
@@ -188,74 +201,44 @@ public class Game
         // Try to leave current room.
         Room nextRoom = null;
         if(direction.equals("north")) {
-            previousRoom = currentRoom;
-            nextRoom = currentRoom.northExit;
+            nextRoom = player.currentRoom.northExit;
         }
         if(direction.equals("east")) {
-            previousRoom = currentRoom;
-            nextRoom = currentRoom.eastExit;
+            nextRoom = player.currentRoom.eastExit;
         }
         if(direction.equals("south")) {
-            previousRoom = currentRoom;
-            nextRoom = currentRoom.southExit;
+            nextRoom = player.currentRoom.southExit;
         }
         if(direction.equals("west")) {
-            previousRoom = currentRoom;
-            nextRoom = currentRoom.westExit;
+            nextRoom = player.currentRoom.westExit;
         }
         if(direction.equals("up")) {
-            previousRoom = currentRoom;
-            nextRoom = currentRoom.upExit;
+            nextRoom = player.currentRoom.upExit;
         }
         if(direction.equals("down")) {
-            previousRoom = currentRoom;
-            nextRoom = currentRoom.downExit;
+            nextRoom = player.currentRoom.downExit;
         }
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
         else {
-            currentRoom = nextRoom;
-            System.out.println("You are " + currentRoom.getDescription());
+            player.currentRoom = nextRoom;
+            System.out.println("You are " + player.currentRoom.getDescription());
             System.out.print("Exits: ");
-            if(currentRoom.northExit != null) {
+            if(player.currentRoom.northExit != null) {
                 System.out.print("north ");
             }
-            if(currentRoom.eastExit != null) {
+            if(player.currentRoom.eastExit != null) {
                 System.out.print("east ");
             }
-            if(currentRoom.southExit != null) {
+            if(player.currentRoom.southExit != null) {
                 System.out.print("south ");
             }
-            if(currentRoom.westExit != null) {
+            if(player.currentRoom.westExit != null) {
                 System.out.print("west ");
             }
             System.out.println();
-        }
-    }
-    
-    private void back() {
-        currentRoom = previousRoom;
-        System.out.println("You are " + currentRoom.getDescription());
-        System.out.print("Exits: ");
-        if(currentRoom.northExit != null) {
-            System.out.print("north ");
-        }
-        if(currentRoom.eastExit != null) {
-            System.out.print("east ");
-        }
-        if(currentRoom.southExit != null) {
-            System.out.print("south ");
-        }
-        if(currentRoom.westExit != null) {
-            System.out.print("west ");
-        }
-        if(currentRoom.upExit != null) {
-            System.out.print("up ");
-        }
-        if(currentRoom.downExit != null) {
-            System.out.print("down ");
         }
     }
 
@@ -277,21 +260,35 @@ public class Game
     
     private void printLocationInfo()
     {
-        System.out.println("You are " + currentRoom.getDescription());
+        System.out.println("You are " + player.currentRoom.getDescription());
         System.out.print("Exits: ");
-        if(currentRoom.northExit != null) {
+        if(player.currentRoom.northExit != null) {
             System.out.print("north ");
         }
-        if(currentRoom.eastExit != null) {
+        if(player.currentRoom.eastExit != null) {
             System.out.print("east ");
         }
-        if(currentRoom.southExit != null) {
+        if(player.currentRoom.southExit != null) {
             System.out.print("south ");
         }
-        if(currentRoom.westExit != null) {
+        if(player.currentRoom.westExit != null) {
             System.out.print("west ");
         }
         System.out.println();
         
     }
+    
+    private void takeItem(Command command)
+    {
+        if(!command.hasSecondWord()) {
+            System.out.println("What do you want to pick up?");
+        }
+        
+        if(command.secondWord == "bread") {
+            if(player.currentRoom == createItems.bread.itemLocation) {
+                player.addItem(command);
+                }
+            }
+        }
+    
 }
