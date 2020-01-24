@@ -12,8 +12,8 @@ public class Player
 {
     // instance variables - replace the example below with your own
     public Room currentRoom;
-        
-    public ArrayList<Item> inventory = new ArrayList<Item>();
+    public ArrayList<String> inventory = new ArrayList<String>();
+    public int inventorySize = 0;
     
     /**
      * Constructor for objects of class Player
@@ -24,23 +24,45 @@ public class Player
      
      /**
      * Set the current room
-     * @param int the current room
+     * @param Room the current room
      */
     public void setCurrentRoom(Room currentRoom)
     {
         this.currentRoom = currentRoom;
     }
     
+    /**
+     * returns the current room
+     * @return gives the current room
+     */
     public Room getCurrentRoom()
     {
         return currentRoom;
     }
     
     /**
+     * sets the size for the inventory
+     * @param int the inventory size
+     */
+    public void setInventorySize(int inventory)
+    {
+        this.inventorySize = inventorySize;
+    }
+    
+    /**
+     * gets the size of the inventory
+     * @return the size of the inventory
+     */
+    public int getInventorySize()
+    {
+        return inventorySize;
+    }
+    
+    /**
      * Add an item to the inventory
      * @param Item the item to be added
      */
-    public void addItem(Item newItem)
+    public void addItem(String newItem)
     {
         inventory.add(newItem);
     }

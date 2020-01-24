@@ -21,16 +21,18 @@ public class Item
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * sets the location for the items
+     * @param String the item location
      */
     public void setItemLocation(String itemLocation)
     {
         this.itemLocation = itemLocation;
     }
     
+    /**
+     * gives the location of the item
+     * @return the item location
+     */
     public String getItemLocation()
     {
         return itemLocation;

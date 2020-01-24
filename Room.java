@@ -22,6 +22,7 @@ public class Room
     public Room westExit;
     public Room upExit;
     public Room downExit;
+    public int event;
 
     /**
      * Create a room described "description". Initially, it has
@@ -63,6 +64,17 @@ public class Room
         }
         if(down != null) {
             downExit = down;
+        }
+    }
+    
+    /**
+     * this method sets the back command trigger
+     * @param
+     */
+    public void setEvents(int event)
+    {
+        if(event != 0) {
+            event = 1;
         }
     }
 
