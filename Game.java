@@ -55,8 +55,8 @@ public class Game
       
         // create the rooms
         bedroom = new Room("in just your average bedroom");
-        hallway = new Room("in a hallway, what more do you want?");
-        kitchen = new Room("in your kitchen. For some reason there's an elf in here that is keeping your fridge hostage for bread.");
+        hallway = new Room("in a hallway, you've been here many times");
+        kitchen = new Room("in your kitchen. For some reason there's an elf in here that is keeping your fridge hostage for bread");
         square = new Room("in a town square with several stores");
         bakery = new Room("at the local bakery. it's guarded by an angry gnome who wants a piece of ham");
         butcher = new Room("at the local butcher's. A dwarf is keeping the door closed. she wants an apple to open the door");
@@ -264,8 +264,9 @@ public class Game
         else {
             player.currentRoom = nextRoom;
             System.out.println("You are " + player.currentRoom.getDescription());
-            if(player.currentRoom.event == 1) {
-                nextRoom = player.currentRoom.southExit;
+            if(player.currentRoom.getDescription() == "in an attic full of holes, AND YOU FALL INTO ONE!") {
+               player.currentRoom = player.currentRoom.downExit;
+               System.out.println("You have fallen " + player.currentRoom.getDescription());
             }
             System.out.print("Exits: ");
             if(player.currentRoom.northExit != null) {
@@ -382,18 +383,18 @@ public class Game
         if(command.secondWord.equals("bread")) {
             player.inventory.forEach((index) -> tempItem = index); {
             if(tempItem.equals("bread")) {
-            if(player.currentRoom.getDescription().equals("in your kitchen. For some reason there's an elf in here that is keeping your fridge hostage for bread.")) {
+            if(player.currentRoom.getDescription().equals("in your kitchen. For some reason there's an elf in here that is keeping your fridge hostage for bread")) {
                 player.inventory.remove("bread");
                 System.out.println("The elf says 'thank you, i was hungry' and leaves");
                 System.out.println("Finally, you can get your snack! you open the fridge");
                 System.out.println("and see... that you forgot to buy food yesterday...");
                 System.out.println("thank you for playing. type quit to end the game");
             }
-            else if(player.currentRoom.getDescription().equals("in the local bakery. it's guarded by an angry gnome who wants a piece of ham")) {
+            else if(player.currentRoom.getDescription().equals("at the local bakery. it's guarded by an angry gnome who wants a piece of ham")) {
                 System.out.println("the gnome refuses the bread on the grounds of");
                 System.out.println("having a gluten allergy");
             }
-            else if(player.currentRoom.getDescription().equals("in the local butcher's. A dwarf is keeping the door closed. she wants an apple to open the door")) {
+            else if(player.currentRoom.getDescription().equals("at the local butcher's. A dwarf is keeping the door closed. she wants an apple to open the door")) {
                 System.out.println("the dwarf says she doesn't like bread");
             }
             else {
@@ -406,7 +407,7 @@ public class Game
         if(command.secondWord.equals("apple")) {
             player.inventory.forEach((index) -> tempItem = index); {
             if(tempItem.equals("apple")) {
-            if(player.currentRoom.getDescription().equals("in your kitchen. For some reason there's an elf in here that is keeping your fridge hostage for bread.")) {
+            if(player.currentRoom.getDescription().equals("in your kitchen. For some reason there's an elf in here that is keeping your fridge hostage for bread")) {
                 player.inventory.remove("apple");
                 System.out.println("The elf says he's allergic and dies.");
                 System.out.println("That was random... ah well.");
@@ -414,10 +415,10 @@ public class Game
                 System.out.println("and see... that you forgot to buy food yesterday...");
                 System.out.println("thank you for playing. type quit to end the game");
             }
-            else if(player.currentRoom.getDescription().equals("in the local bakery. it's guarded by an angry gnome who wants a piece of ham")) {
+            else if(player.currentRoom.getDescription().equals("at the local bakery. it's guarded by an angry gnome who wants a piece of ham")) {
                 System.out.println("the gnome throws the apple back at you.");
             }
-            else if(player.currentRoom.getDescription().equals("in the local butcher's. A dwarf is keeping the door closed. she wants an apple to open the door")) {
+            else if(player.currentRoom.getDescription().equals("at the local butcher's. A dwarf is keeping the door closed. she wants an apple to open the door")) {
                 player.inventory.remove("apple");
                 System.out.println("the dwarf thanks you for the apple and gives you");
                 System.out.println("a piece of ham.");
@@ -433,16 +434,16 @@ public class Game
         if(command.secondWord.equals("ham")) {
             player.inventory.forEach((index) -> tempItem = index); {
             if(tempItem.equals("ham")) {
-            if(player.currentRoom.getDescription().equals("in your kitchen. For some reason there's an elf in here that is keeping your fridge hostage for bread.")) {
+            if(player.currentRoom.getDescription().equals("in your kitchen. For some reason there's an elf in here that is keeping your fridge hostage for bread")) {
                 System.out.println("The elf says he's a vegetarian");
             }
-            else if(player.currentRoom.getDescription().equals("in the local bakery. it's guarded by an angry gnome who wants a piece of ham")) {
+            else if(player.currentRoom.getDescription().equals("at the local bakery. it's guarded by an angry gnome who wants a piece of ham")) {
                 player.inventory.remove("ham");
                 System.out.println("the gnome goes ham on the ham (get it?)");
                 System.out.println("he drops some bread and you pick it up");
                 player.inventory.add("bread");
             }
-            else if(player.currentRoom.getDescription().equals("in the local butcher's. A dwarf is keeping the door closed. she wants an apple to open the door")) {
+            else if(player.currentRoom.getDescription().equals("at the local butcher's. A dwarf is keeping the door closed. she wants an apple to open the door")) {
                 System.out.println("the dwarf says she doesn't need it, because she");
                 System.out.println("has an entire butcher's shop here");
             }
